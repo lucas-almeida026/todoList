@@ -1,0 +1,243 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+a, a:visited, a:active, a:hover{
+	color: currentColor;
+	text-decoration: none;
+}
+
+button, input{
+	outline-style: none;
+}
+
+:root{
+    --originalBg: #5c5757;
+    --originalPrimary: #d19f19;
+    --originalSecundary: #ab924f;
+    --originalSpotlight: #1d69b5;
+
+    --darkPrimary: #75726d;
+
+    --lightPrimary: #e8e9ed;
+
+    --purplePrimary: #83229c;
+
+    --bluePrimary: #22869c;
+
+    --greenPrimary: #599e24;
+}
+
+body{
+    width: 100vw;
+    min-height: 100vh;
+    background: var(--originalBg);
+}
+
+header{
+    height: 80px;
+    background-color: var(--originalBg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#logo{
+    width: 200px;
+    height: 60px;
+    /* background: #f0f0f0; */
+    margin-right: 10px;
+}
+
+#name{
+    color: #f0f0f0;
+    font-size: 16pt;
+    margin-left: 10px;
+}
+
+#app{
+    width: 100%;
+    min-height: 400px;
+    display: grid;
+    grid-template-columns: 260px auto;
+    align-self: center;
+    padding-top: 100px;
+}
+
+#asideMenu{
+    width: 300px;
+    height: 420px;
+    background-image: linear-gradient(to right, rgba(255, 255, 255, .2), rgba(255, 255, 255, .5));
+    border-radius: 40px;
+    transform: translateX(-80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.menuItem{
+    width: 95%;
+    height: 50px;
+    background: #ffffff;
+    border-radius: 50px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 3px 4px rgba(0, 0, 0, .2);
+    opacity: .5;
+    /* transition: .2s ease-in; */
+}
+
+.menuItem p{
+    margin-right: 30px;
+    font-size: 18pt;
+    font-weight: 300;
+}
+/* 
+.menuItem:hover::after{
+    content: 'asd';
+    width: 100px;
+    display: block;
+    background: black;
+    position: absolute;
+    transform: translate(-50%, -200%);
+} */
+
+.selectedTheme ~ .menuItem:hover{
+    opacity: .8;
+}
+
+.selectedTheme{
+    opacity: 1;
+}
+
+#themeOriginal{background: var(--originalPrimary);}
+
+#themeDark{background: var(--darkPrimary);}
+
+#themeLight{background: var(--lightPrimary);}
+
+#themePurple{background: var(--purplePrimary);}
+
+#themeBlue{background: var(--bluePrimary);}
+
+#themeGreen{background: var(--greenPrimary);}
+
+.colorTheme{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 5px;
+    border: 1px solid #999;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+}
+
+#taskList{
+    justify-self: center;
+    width: 80%;
+    min-height: 300px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, .7);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+#phantomTask{
+    opacity: .7;
+    transition: .2s ease-in;
+}
+
+#phantomTask:hover, #phantomTask:focus{opacity: 1}
+
+.task{
+    width: 90%;
+    max-width: 360px;
+    height: 40px;
+    margin: 5px 0;
+    display: flex;
+    background: #f0f0f0;
+    align-items: center;
+    border-radius: 6px;
+    position: relative;
+    padding: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
+}
+
+.task:hover .options{
+    z-index: 1;
+    opacity: 1;
+}
+
+.task input{
+    border: 0;
+    background: transparent;
+    padding: 0 10px;
+    width: 100%;
+    font-size: 14pt;
+}
+
+.checkBox{
+    width: 18px;
+    height: 18px;
+    background: #ddd;
+    border: 2px solid #aaa;
+    border-radius: 4px;
+    margin-left: 10px;
+    overflow: visible;
+}
+
+.checked::after{
+    content: '';
+    width: 8px;
+    height: 3px;
+    background: var(--originalPrimary);
+    display: block;
+    border-radius: 4px;
+    transform: translate(-2px, 5px) rotate(45deg);
+}
+
+.checked::before{
+    content: '';
+    width: 16px;
+    height: 3px;
+    background: var(--originalPrimary);
+    display: block;
+    border-radius: 4px;
+    transform: translate(1px, 6px) rotate(-45deg);
+}
+
+.options{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: absolute;
+    margin-left: 100%;
+    transform: translateX(calc(-100% - 10px));
+    opacity: 0;
+    z-index: -1;
+    transition: .2s ease-in;
+}
+
+.option{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(92, 87, 87, .1);
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.option:hover{background: rgba(92, 87, 87, .3);}
+
+.materialOptions{
+    font-size: 18px;
+    margin: 2px;
+    color: var(--originalPrimary);
+}

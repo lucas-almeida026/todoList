@@ -1,0 +1,118 @@
+#bgModalBox{
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, .7);
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: .5s;
+	opacity: 0;
+	z-index: 2;
+}
+
+#modalBox{
+	width: 80%;
+	max-width: 450px;
+  	min-height: 200px;
+	background: white;
+	justify-content: center;
+  	border-radius: 8px;
+	padding: 12px;
+	overflow-x: hidden;
+}
+
+#btnClose{
+	width: 20px;
+	height: 20px;
+	float: right;
+	cursor: pointer;
+}
+
+#btnClose::before{
+	content: '';
+	width: 20px;
+	height: 2px;
+	float: left;
+	background: black;
+	border-radius: 5px;
+	display: block;
+	transform: translateY(8px) rotate(45deg);
+}
+
+#btnClose::after{
+	content: '';
+	width: 20px;
+	height: 2px;
+	background: black;
+	border-radius: 5px;
+	display: block;
+	transform: translateY(8px) rotate(-45deg);
+}
+
+#modalBox h1{
+	font-size: 20pt;
+	font-weight: normal;
+	color: #1f1f1f;
+	margin-left: 10px;
+}
+
+#modalBox p{
+	font-size: 15pt;
+	font-weight: normal;
+	width: 90%;
+	color: #444;
+	margin-left: 10px;
+	margin-top: 10px;
+}
+
+#modalButtons{
+	height: 50px;
+	margin-top: 20px;
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+#btnOk{
+	width: 100px;
+	padding: 6px 0;
+	background-color: var(--verde);
+	color: white;
+	border: 0;
+	border-radius: 6px;
+	margin-right: 10px;
+	cursor: pointer;
+	opacity: .8;
+	transition: .2;
+}
+
+#btnCancel{
+	width: 100px;
+	padding: 6px 0;
+	background-color: #edefea;
+	color: var(--verde);
+	border: 0;
+	border-radius: 6px;
+	margin-right: 10px;
+	cursor: pointer;
+	border: 1px solid #bbb;
+	opacity: .7;
+	transition: .2;
+}
+
+#btnCancel:hover, #btnOk:hover{
+	opacity: 1;
+}
+
+#modalInputText{
+	padding: 4px 6px;
+	font-size: 14pt;
+	width: 80%;
+	max-width: 280px;
+	border: 1px solid #666;
+	border-radius: 6px;
+	margin-top: 30px;
+	margin-left: 50%;
+	transform: translateX(-50%);
+}

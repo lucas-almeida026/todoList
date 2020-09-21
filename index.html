@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Today todo list</title>
+</head>
+<body>
+    <header>
+        <div id="logo"></div>
+        <div id="name">Today - Todo List</div>
+    </header>
+    <section id="app">
+        <div id="asideMenu">
+            <div class="menuItem selectedTheme"><p>Original</p><div class="colorTheme" id="themeOriginal"></div></div>
+            <div class="menuItem"><p>Dark</p><div class="colorTheme" id="themeDark"></div></div>
+            <div class="menuItem"><p>Light</p><div class="colorTheme" id="themeLight"></div></div>
+            <div class="menuItem"><p>Purple</p><div class="colorTheme" id="themePurple"></div></div>
+            <div class="menuItem"><p>Blue</p><div class="colorTheme" id="themeBlue"></div></div>
+            <div class="menuItem"><p>Green</p><div class="colorTheme" id="themeGreen"></div></div>
+        </div>
+        <div id="taskList">
+            <div class="task">
+                <div class="checkBox checked"></div>
+                <input type="text" value="task" readonly>
+                <div class="options">
+                    <div class="option">
+                        <i class="material-icons materialOptions">edit</i>
+                    </div>
+                    <div class="option">
+                        <i class="material-icons materialOptions">delete</i>
+                    </div>
+                </div>
+            </div>
+
+            <div id="phantomTask" class="task">
+                <input id="phantomTaskInput" type="text" placeholder="+ Add a new task">
+            </div>
+        </div>
+    </section>
+    <!-- <article class="information">
+        <section id="whatIs">
+            <h1>Title</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quam eos, minima perferendis assumenda reiciendis, et dicta veniam eaque eum ipsam iure ipsum culpa quod? Quibusdam, natus! Repellat, aperiam molestias!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci exercitationem laudantium earum quisquam tenetur nesciunt nam et deserunt rem quaerat porro sunt molestias tempore accusamus veniam ipsam, iusto provident architecto?</p>
+        </section>
+        <section id="objective">
+            <h1>Title</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quam eos, minima perferendis assumenda reiciendis, et dicta veniam eaque eum ipsam iure ipsum culpa quod? Quibusdam, natus! Repellat, aperiam molestias!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci exercitationem laudantium earum quisquam tenetur nesciunt nam et deserunt rem quaerat porro sunt molestias tempore accusamus veniam ipsam, iusto provident architecto?</p>
+        </section>
+        <section id="howToUse">
+            <h1>Title</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla quam eos, minima perferendis assumenda reiciendis, et dicta veniam eaque eum ipsam iure ipsum culpa quod? Quibusdam, natus! Repellat, aperiam molestias!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci exercitationem laudantium earum quisquam tenetur nesciunt nam et deserunt rem quaerat porro sunt molestias tempore accusamus veniam ipsam, iusto provident architecto?</p>
+        </section>
+    </article>
+    <footer>
+        <p>Created by <a href="https://github.com/lucas-almeida026">Lucas Almeida</a></p>
+        <p>Released by <a href="https://github.com">Git Hub</a></p>
+    </footer> -->
+    <script src="js/index.js"></script>
+</body>
+</html>
