@@ -1,3 +1,4 @@
+// todo
 const setMasterInLocalStorage = (key, value) => !!key && !!value ? localStorage.setItem(key, value) : false
 const getMasterInLocalStorage = () => {return {...JSON.parse(localStorage.getItem('todoTasks#0927'))}} 
 const updateMasterInLocalStorage = state => localStorage.setItem('todoTasks#0927', state)
