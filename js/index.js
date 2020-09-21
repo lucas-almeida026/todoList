@@ -1,8 +1,6 @@
 const setMasterInLocalStorage = (key, value) => !!key && !!value ? localStorage.setItem(key, value) : false
-const getMasterInLocalStorage = () => JSON.parse(localStorage.getItem('todoTasks#0927'))
-const updateMasterLocalStorage = (target, value) => {
-    console.log(target, value)
-}
+const getMasterInLocalStorage = () => {return {...JSON.parse(localStorage.getItem('todoTasks#0927'))}} 
+const updateMasterInLocalStorage = state => localStorage.setItem('todoTasks#0927', state)
 
 const createTaskElements = tasks => {
     return resp = !!tasks ? tasks.map(e => console.log(e)) : false
@@ -13,24 +11,32 @@ function Task(name){
     return {name, id: this.id}
 }
 
-const addTask = task => {
-    getMasterInLocalStorage().tasks.push(task)
-}
-
 const renderTasks = tasks => {
     console.log(createTaskElements())
 }
 
+const updateState = (state, stateKey, newValue) => {
+    let dicFunctions = [
+        ['tasks', () => state = {...state, tasks: newValue}],
+        ['colorTheme', () => state = {...state, colorTheme: newValue}]
+    ]
+    return !!state[stateKey] ? Object.fromEntries(dicFunctions)[stateKey]() : false
+}
+
 window.addEventListener('DOMContentLoaded', () => {
-    const masterTodoList = !!localStorage.getItem('todoTasks#0927') ? getMasterInLocalStorage() : setMasterInLocalStorage('todoTasks#0927', JSON.stringify({
+    !!localStorage.getItem('todoTasks#0927') ? false : setMasterInLocalStorage('todoTasks#0927', JSON.stringify({
         tasks: [],
         colorTheme: 'original'
     }))
-    renderTasks(masterTodoList.tasks)
+    const state = getMasterInLocalStorage()
+    console.log(state)
+    renderTasks(state.tasks)
     let phantomTaskInput = document.getElementById('phantomTaskInput')
     phantomTaskInput.addEventListener('focusout', () => phantomTaskInput.value = '')
     phantomTaskInput.addEventListener('keypress', e => {
-        const submitEvent = () => addTask(new Task(phantomTaskInput.value))
+        const submitEvent = () => {
+            localStorage.setItem('todoTasks#0927', JSON.stringify(updateState(state, 'tasks', new Task(phantomTaskInput.value))))
+        }
         e.key == 'Enter' ? submitEvent() : false
     })
 })
