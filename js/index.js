@@ -7,7 +7,8 @@ const createTaskElements = tasks => {
 }
 
 function Task(name){
-    this.id = !!getMasterInLocalStorage().tasks.length ? false : '1'
+    const setNextId = stateTasks => (parseInt(stateTasks[stateTasks.length - 1].id) + 1).toString()
+    this.id = !!getMasterInLocalStorage().tasks.length >= 1 ? setNextId(getMasterInLocalStorage().tasks) : '1'
     return {name, id: this.id}
 }
 
@@ -17,10 +18,14 @@ const renderTasks = tasks => {
 
 const updateState = (state, stateKey, newValue) => {
     let dicFunctions = [
-        ['tasks', () => state = {...state, tasks: newValue}],
+        ['tasks', () => {
+            state.tasks.push(newValue)
+            return newState = {...state}
+        }],
         ['colorTheme', () => state = {...state, colorTheme: newValue}]
     ]
-    return !!state[stateKey] ? Object.fromEntries(dicFunctions)[stateKey]() : false
+    let newLocalStore = JSON.stringify(Object.fromEntries(dicFunctions)[stateKey]())
+    return !!state[stateKey] ? localStorage.setItem('todoTasks#0927', newLocalStore) : false
 }
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -34,9 +39,10 @@ window.addEventListener('DOMContentLoaded', () => {
     let phantomTaskInput = document.getElementById('phantomTaskInput')
     phantomTaskInput.addEventListener('focusout', () => phantomTaskInput.value = '')
     phantomTaskInput.addEventListener('keypress', e => {
-        const submitEvent = () => {
-            localStorage.setItem('todoTasks#0927', JSON.stringify(updateState(state, 'tasks', new Task(phantomTaskInput.value))))
+        if(e.key == 'Enter'){
+            console.log(new Task(phantomTaskInput.value))
+            updateState(state, 'tasks', new Task(phantomTaskInput.value))
+            phantomTaskInput.value = ''
         }
-        e.key == 'Enter' ? submitEvent() : false
     })
 })
