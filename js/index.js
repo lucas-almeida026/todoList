@@ -93,11 +93,37 @@ const renderTasks = async tasks => {
     }
 }
 
+const renderColorTheme = theme => {
+    const body = document.getElementsByTagName('body')[0]
+    const header = document.getElementsByTagName('header')[0]
+    const optionButtons = document.getElementsByClassName('option')
+    body.classList.add(theme + 'Bg')
+    header.classList.add(theme + 'Bg')
+    for(btn of optionButtons){
+        document.getElementById(btn.id).classList.add(theme + 'Material')
+    }
+}
+
+
+
+
+
 window.addEventListener('DOMContentLoaded', () => {
     !!localStorage.getItem('tasks') ? false : localStorage.setItem('tasks', '')
     !!localStorage.getItem('colorTheme') ? false : localStorage.setItem('colorTheme', 'original')
 
     renderTasks(localStorage.getItem('tasks'))
+    renderColorTheme(localStorage.getItem('colorTheme'))
+
+    const btnsThemeColor = document.getElementsByClassName('menuItem')
+    for(let i = 0; i < btnsThemeColor.length; i++){
+        const thisBtn = document.getElementById(btnsThemeColor[i].id)
+        thisBtn.onclick = () => {
+            const color = thisBtn.id.substring(6, thisBtn.id.length).toLowerCase()
+            renderColorTheme(color)
+        }
+    }
+
     let phantomTaskInput = document.getElementById('phantomTaskInput')
     phantomTaskInput.addEventListener('focusout', () => phantomTaskInput.value = '')
     phantomTaskInput.addEventListener('keypress', e => {

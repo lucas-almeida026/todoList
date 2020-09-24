@@ -13,7 +13,7 @@ a, a:visited, a:active, a:hover{
 button, input{
 	outline-style: none;
 }
-/* #faf7f0 */
+
 :root{
     --originalPrimary: #d19f19;
     --originalSecundary: #ab924f;
@@ -23,8 +23,8 @@ button, input{
     --darkSecundary: #2b2b29;
     --darkSpotlight: #e6e6bc;
 
-    --lightPrimary: #2b2b29;
-    --lightSecundary: #e8e9ed;
+    --lightPrimary: #aaadb4;
+    --lightSecundary: #f0f0f4;
     --lightSpotlight: #c74b22;
 
     --purplePrimary: #83229c;
@@ -40,15 +40,31 @@ button, input{
     --greenSpotlight:  #83229c;
 }
 
+.originalBg{ background: var(--originalSecundary)}
+.originalMaterial{ color: var(--originalPrimary)}
+
+.darkBg{ background: var(--darkSecundary)}
+.darkMaterial{ color: var(--darkPrimary)}
+
+.lightBg{ background: var(--lightSecundary)}
+.lightMaterial{ color: var(--lightPrimary)}
+
+.purpleBg{ background: var(--purpleSecundary)}
+.purpleMaterial{ color: var(--purplePrimary)}
+
+.blueBg{ background: var(--blueSecundary)}
+.blueMaterial{ color: var(--bluePrimary)}
+
+.greenBg{ background: var(--greenSecundary)}
+.greenMaterial{ color: var(--greenPrimary)}
+
 body{
     width: 100vw;
     min-height: 100vh;
-    background: var(--originalSecundary);
 }
 
 header{
     height: 80px;
-    background-color: var(--originalSecundary);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,7 +144,7 @@ header{
 
 #themeDark{background: var(--darkPrimary);}
 
-#themeLight{background: var(--lightPrimary);}
+#themeLight{background: var(--lightSecundary);}
 
 #themePurple{background: var(--purplePrimary);}
 
@@ -248,5 +264,4 @@ header{
 .materialOptions{
     font-size: 18px;
     margin: 2px;
-    color: var(--originalPrimary);
 }
