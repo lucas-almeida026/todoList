@@ -13,33 +13,42 @@ a, a:visited, a:active, a:hover{
 button, input{
 	outline-style: none;
 }
-
+/* #faf7f0 */
 :root{
-    --originalBg: #5c5757;
     --originalPrimary: #d19f19;
     --originalSecundary: #ab924f;
     --originalSpotlight: #1d69b5;
 
     --darkPrimary: #75726d;
+    --darkSecundary: #2b2b29;
+    --darkSpotlight: #e6e6bc;
 
-    --lightPrimary: #e8e9ed;
+    --lightPrimary: #2b2b29;
+    --lightSecundary: #e8e9ed;
+    --lightSpotlight: #c74b22;
 
     --purplePrimary: #83229c;
+    --purpleSecundary: #5d3d66;
+    --purpleSpotlight: #599e24;
 
     --bluePrimary: #22869c;
+    --blueSecundary: #416a73;
+    --blueSpotlight: #c92cc2;
 
     --greenPrimary: #599e24;
+    --greenSecundary: #55733e;
+    --greenSpotlight:  #83229c;
 }
 
 body{
     width: 100vw;
     min-height: 100vh;
-    background: var(--originalBg);
+    background: var(--originalSecundary);
 }
 
 header{
     height: 80px;
-    background-color: var(--originalBg);
+    background-color: var(--originalSecundary);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -70,7 +79,7 @@ header{
 #asideMenu{
     width: 300px;
     height: 420px;
-    background-image: linear-gradient(to right, rgba(255, 255, 255, .2), rgba(255, 255, 255, .5));
+    background-image: linear-gradient(to right, rgba(255, 255, 255, .0) 33%, rgba(255, 255, 255, .5));
     border-radius: 40px;
     transform: translateX(-80px);
     display: flex;
@@ -88,7 +97,7 @@ header{
     align-items: center;
     cursor: pointer;
     box-shadow: 0 3px 4px rgba(0, 0, 0, .2);
-    opacity: .5;
+    opacity: .6;
     transition: .2s ease-in;
 }
 
