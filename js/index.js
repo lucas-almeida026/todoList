@@ -97,14 +97,21 @@ const renderColorTheme = theme => {
     const body = document.getElementsByTagName('body')[0]
     const header = document.getElementsByTagName('header')[0]
     const optionButtons = document.getElementsByClassName('option')
+    const menuItems = document.getElementsByClassName('menuItem')
     body.classList.add(theme + 'Bg')
     header.classList.add(theme + 'Bg')
     for(btn of optionButtons){
-        document.getElementById(btn.id).classList.add(theme + 'Material')
+        thisBtn = document.getElementById(btn.id)
+        thisBtn.classList.add(theme + 'Material')
+        !!thisBtn.classList.item(2) ? thisBtn.classList.remove(thisBtn.classList.item(1)) : false
     }
+    for(btn of menuItems){
+        btn.classList.item(1) ? btn.classList.remove(btn.classList.item(1)) : false
+        btn.id.substring(6, btn.id.length).toLowerCase() == theme ? btn.classList.add('selectedTheme') : false
+    } 
+    !!body.classList.item(1) ? body.classList.remove(body.classList.item(0)) : false
+    !!header.classList.item(1) ? header.classList.remove(header.classList.item(0)) : false
 }
-
-
 
 
 
@@ -119,8 +126,9 @@ window.addEventListener('DOMContentLoaded', () => {
     for(let i = 0; i < btnsThemeColor.length; i++){
         const thisBtn = document.getElementById(btnsThemeColor[i].id)
         thisBtn.onclick = () => {
-            const color = thisBtn.id.substring(6, thisBtn.id.length).toLowerCase()
-            renderColorTheme(color)
+            const theme = thisBtn.id.substring(6, thisBtn.id.length).toLowerCase()
+            localStorage.setItem('colorTheme', theme)
+            renderColorTheme(localStorage.getItem('colorTheme'))
         }
     }
 
