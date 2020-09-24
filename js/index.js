@@ -1,5 +1,22 @@
-const encode = id => parseInt((id * 23), 16).toString()
-const decode = encodedId => (parseInt(encodedId, 10) / 21).toString()
+const encode = id => (id * 7).toString(16) + (id * 140).toString(16).substring(0, 2)
+const decode = encodedId => (parseInt('0x' + encodedId.substring(0, encodedId.length - 2)) / 7).toString()
+
+const getTaskById = taskId => {
+    console.log(taskId)
+}
+
+const deleteTask = taskId => {
+    console.log(taskId)
+}
+
+const editTask = taskId => {
+    console.log(taskId)
+}
+
+const checkTask = taskId => {
+    decodedId = decode(taskId.substring(taskId.indexOf('_') + 1, taskId.length))
+    getTaskById(decodedId)
+}
 
 const createTaskElements = tasks => {
     return !!tasks ? tasks.map(e => {
@@ -9,19 +26,23 @@ const createTaskElements = tasks => {
         let options = document.createElement('div')
         let btnEdit = document.createElement('div')
         let btnDelete = document.createElement('div')
-        btnEdit.classList.add('option')
+        btnEdit.classList.add('option')        
+        btnEdit.id = 'edit_' + encode(e.id)
         btnEdit.innerHTML = '<i class="material-icons materialOptions">edit</i>'
+        btnEdit.onclick = e => editTask(e.target.tagName == 'I' ? e.target.parentNode.id : e.target.id)
         btnDelete.classList.add('option')
-        btnDelete.id = 'edit_' + encode(e.id)
+        btnDelete.id = 'delete_' + encode(e.id)
         btnDelete.innerHTML = '<i class="material-icons materialOptions">delete</i>'
+        btnDelete.onclick = e => deleteTask(e.target.tagName == 'I' ? e.target.parentNode.id : e.target.id)
         options.classList.add('options')
-        btnEdit.id = 'delete_' + encode(e.id)
         options.append(btnEdit)
         options.append(btnDelete)
         inputTextName.type = 'text'
         inputTextName.value = e.name
         inputTextName.readOnly = true
+        checkBox.id = 'chk_' + encode(e.id)
         checkBox.classList.add('checkBox')
+        checkBox.onclick = e => checkTask(e.target.id)
         e.finished ? checkBox.classList.add('checked') : false
         task.classList.add('task')
         task.id = 'task_' + encode(e.id)
@@ -33,16 +54,17 @@ const createTaskElements = tasks => {
 }
 
 function Task(name){
-    console.log(!!localStorage.getItem('tasks').length)
-    if(!!localStorage.getItem('tasks').length == false){
+    this.name = name
+    const tasks = localStorage.getItem('tasks')
+    if(!!tasks.length == false){
         this.id = '1'
     }else{
-        this.id = (parseInt(JSON.parse(localStorage.getItem('tasks')
-        .split(';')[0]).id) + 1)
-        .toString()
+        nextId = tasks.split(';')
+        .reduce((acm, curr, i, arr) => 
+        acm = (i == arr.length - 1 ? (parseInt(JSON.parse(curr).id) + 1).toString() : '-1'), '-1')
+        this.id = nextId != -1 ? nextId : console.log('Erro ao gerar próximo id')
     }
     this.finished = false
-    return {name, id: this.id, finished: this.finished}
 }
 
 const removeTasks = () => {
@@ -60,9 +82,8 @@ const removeTasks = () => {
 const renderTasks = async tasks => {
     removeTasks()
     const list = document.getElementById('taskList')
-    const normalizedTasks = tasks.split(';')
-    .filter((_, i, arr) => i < arr.length - 1)
-    .map(e => JSON.parse(e))
+    const normalizedTasks = tasks.length > 0 ? tasks.split(';')
+    .map(e => JSON.parse(e)) : false
 
     const arrayElements = createTaskElements(normalizedTasks)
     if(!!arrayElements){
@@ -80,9 +101,13 @@ window.addEventListener('DOMContentLoaded', () => {
     let phantomTaskInput = document.getElementById('phantomTaskInput')
     phantomTaskInput.addEventListener('focusout', () => phantomTaskInput.value = '')
     phantomTaskInput.addEventListener('keypress', e => {
-        if (phantomTaskInput.value.length < 40){
+        if(phantomTaskInput.value.length < 40){
             if(e.key == 'Enter' && phantomTaskInput.value != ''){
-                localStorage.setItem('tasks', [JSON.stringify(new Task(phantomTaskInput.value.trim())) + ';' +localStorage.getItem('tasks')])
+                new Task(phantomTaskInput.value.trim())
+                if(localStorage.getItem('tasks').length == 0)              
+                    localStorage.setItem('tasks', JSON.stringify(new Task(phantomTaskInput.value.trim())))
+                else
+                    localStorage.setItem('tasks', [localStorage.getItem('tasks') + ';' + JSON.stringify(new Task(phantomTaskInput.value.trim()))])
                 phantomTaskInput.value = ''
                 renderTasks(localStorage.getItem('tasks'))            
             }
