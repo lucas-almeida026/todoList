@@ -202,26 +202,6 @@ header{
     align-items: center;
 }
 
-/* .checked::after{
-    content: '';
-    width: 8px;
-    height: 3px;
-    background: var(--originalPrimary);
-    display: block;
-    border-radius: 4px;
-    transform: translate(-2px, 5px) rotate(45deg);
-}
-
-.checked::before{
-    content: '';
-    width: 16px;
-    height: 3px;
-    background: var(--originalPrimary);
-    display: block;
-    border-radius: 4px;
-    transform: translate(1px, 6px) rotate(-45deg);
-} */
-
 .options{
     display: flex;
     justify-content: flex-end;
@@ -249,3 +229,5 @@ header{
     font-size: 18px;
     margin: 2px;
 }
+
+/* @media screen and (max-width: 1080px) */

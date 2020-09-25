@@ -176,6 +176,7 @@ window.addEventListener('DOMContentLoaded', () => {
     let phantomTaskInput = document.getElementById('phantomTaskInput')
     phantomTaskInput.addEventListener('focusout', () => phantomTaskInput.value = '')
     phantomTaskInput.addEventListener('keypress', e => {
+        if(phantomTaskInput.value.length >= 4 ) alert(e.key)
         if(phantomTaskInput.value.length < 40){
             if(e.key == 'Enter' && phantomTaskInput.value != ''){
                 if(localStorage.getItem('tasks').length == 0)              
