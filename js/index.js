@@ -11,7 +11,13 @@ const updateTasks = (task, change) => {
 }
 
 const deleteTask = taskId => {
-    console.log(taskId)
+    decodedId = decode(taskId.substring(taskId.indexOf('_') + 1, taskId.length))
+    const thisTask = getTaskById(decodedId)
+    const tasks = localStorage.getItem('tasks')
+    const lefting = tasks.split(';').map(e => JSON.parse(e)).filter(e => e.id < thisTask.id)
+    const righting = tasks.split(';').map(e => JSON.parse(e)).filter(e => e.id > thisTask.id)
+    localStorage.setItem('tasks', [...lefting, ...righting].map(e => JSON.stringify(e)).join(';'))
+    renderTasks(localStorage.getItem('tasks')) 
 }
 
 const editTask = taskId => {
@@ -50,6 +56,7 @@ const createTaskElements = tasks => {
         inputTextName.type = 'text'
         inputTextName.value = e.name
         inputTextName.readOnly = true
+        inputTextName.id = 'input_' + encode(e.id)
 
         checkBox.id = 'chk_' + encode(e.id)
         checkBox.classList.add('checkBox')
@@ -116,9 +123,8 @@ const renderColorTheme = theme => {
     body.classList.add(theme + 'Bg')
     header.classList.add(theme + 'Bg')
     for(btn of optionButtons){
-        thisBtn = document.getElementById(btn.id)
-        thisBtn.classList.add(theme + 'Material')
-        !!thisBtn.classList.item(2) ? thisBtn.classList.remove(thisBtn.classList.item(1)) : false
+        !!btn.children[0].classList.item(2) ? btn.children[0].classList.remove(btn.children[0].classList.item(2)) : false
+        btn.children[0].classList.add(theme + 'Material')     
     }
 
     for(btn of menuItems){
