@@ -21,13 +21,27 @@ const deleteTask = taskId => {
 }
 
 const editTask = taskId => {
-    console.log(taskId)
+    decodedId = decode(taskId.substring(taskId.indexOf('_') + 1, taskId.length))
+    const thisTask = getTaskById(decodedId)
+    const input = document.getElementById('input_' + taskId.substring(taskId.indexOf('_') + 1, taskId.length))
+    input.readOnly = false
+    input.select()
+    input.addEventListener('keypress', e => {
+        if(input.value.length < 40){
+            if(e.key == 'Enter' && input.value != ''){
+                updateTasks(thisTask, t => t.name = input.value.trim())
+                renderTasks(localStorage.getItem('tasks'))            
+            }
+        }else{
+            alert('nome muito grande')
+        }
+    })    
 }
 
 const checkTask = taskId => {
     decodedId = decode(taskId.substring(taskId.indexOf('_') + 1, taskId.length))
     const thisTask = getTaskById(decodedId)
-    thisTask.finished ? updateTasks(thisTask, t =>{t.finished = false}) : updateTasks(thisTask, t => {t.finished = true})
+    thisTask.finished ? updateTasks(thisTask, t => t.finished = false) : updateTasks(thisTask, t => {t.finished = true})
     renderTasks(localStorage.getItem('tasks')) 
 }
 
@@ -164,7 +178,6 @@ window.addEventListener('DOMContentLoaded', () => {
     phantomTaskInput.addEventListener('keypress', e => {
         if(phantomTaskInput.value.length < 40){
             if(e.key == 'Enter' && phantomTaskInput.value != ''){
-                new Task(phantomTaskInput.value.trim())
                 if(localStorage.getItem('tasks').length == 0)              
                     localStorage.setItem('tasks', JSON.stringify(new Task(phantomTaskInput.value.trim())))
                 else
