@@ -61,11 +61,6 @@ button, input{
 .contrast{color: #1e1e1e;}
 .colorWhite{color: #f0f0f2;}
 
-body{
-    width: 100vw;
-    min-height: 100vh;
-}
-
 header{
     height: 80px;
     display: flex;
@@ -82,16 +77,15 @@ header{
 
 #app{
     width: 100%;
-    min-height: 400px;
-    display: grid;
-    grid-template-columns: 260px auto;
-    align-self: center;
+    height: auto;
     padding-top: 100px;
 }
 
 #asideMenu{
+    margin-top: 100px;
     width: 300px;
     height: 420px;
+    position: fixed;
     background-image: linear-gradient(to right, rgba(255, 255, 255, .0) 33%, rgba(255, 255, 255, .5));
     border-radius: 40px;
     transform: translateX(-80px);
@@ -99,7 +93,6 @@ header{
     flex-direction: column;
     justify-content: space-evenly;
     transition: .2s;
-    /* box-shadow: 0 0 5px 2px rgba(0, 0, 0, .3); */
 }
 
 #menuSlider{
@@ -170,8 +163,8 @@ header{
 
 #taskList{
     justify-self: center;
-    width: 80%;
-    height: 100%;
+    width: calc(80% - 320px);
+    height: 420px;
     padding: 12px;
     border: 1px solid rgba(255, 255, 255, .7);
     border-radius: 12px;
@@ -179,6 +172,7 @@ header{
     flex-direction: column;
     align-items: center;
     cursor: pointer;
+    margin-left: 320px;
 }
 
 #phantomTask{
@@ -258,7 +252,35 @@ header{
     display: none;
 }
 
-@media screen and (max-width: 790px){
+#btnSend{
+    padding: 2px 4px;
+    border-radius: 4px;
+    border: 1px solid #888;
+    display: none;
+}
+
+@media screen and (max-width: 940px){
+    #taskList{
+        width: calc(90% - 280px);
+        margin-left: 280px;
+    }
+}
+
+@media screen and (max-width: 720px){
+
+    #btnSend{
+        display: block;
+    }
+
+    #app{        
+        padding-top: 20px;
+    }
+
+    #taskList{
+        width: 80%;
+        margin-left: 10%;
+        height: 340px;
+    }
 
     #menuBackground{
         width: 100vw;
@@ -269,13 +291,12 @@ header{
         background-color: rgba(0, 0, 0, 0);
     }
 
-    #app{
-        grid-template-columns: 1fr;
-    }
-
     #asideMenu{
+        float: left;
         position: fixed;
-        transform: translateX(-95%);
+        height: 380px;
+        margin-top: 50vh;
+        transform: translate(-95%, calc(-50% - 80px));
         z-index: 3;
         background-image: linear-gradient(to right, #aaa, #f0f0f0);
     }
@@ -287,7 +308,7 @@ header{
     }
 
     #menuSlider i{
-        color: #3f3f3f;
+        color: #555;
         transform: rotate(180deg);
     }
 

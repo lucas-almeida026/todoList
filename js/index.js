@@ -35,7 +35,13 @@ const editTask = taskId => {
         }else{
             alert('nome muito grande')
         }
-    })    
+    })
+    input.addEventListener('focusout', () => {
+        if(input.value != ''){
+            updateTasks(thisTask, t => t.name = input.value.trim())
+            renderTasks(localStorage.getItem('tasks'))
+        }
+    })
 }
 
 const checkTask = taskId => {
@@ -175,17 +181,20 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     let phantomTaskInput = document.getElementById('phantomTaskInput')
-    phantomTaskInput.addEventListener('focusout', () => phantomTaskInput.value = '')
+    const onEnterPress = (string) => {  
+        if(localStorage.getItem('tasks').length == 0)              
+            localStorage.setItem('tasks', JSON.stringify(new Task(string.trim())))
+        else
+            localStorage.setItem('tasks', [localStorage.getItem('tasks') + ';' + JSON.stringify(new Task(string.trim()))])
+
+        phantomTaskInput.value = ''
+        renderTasks(localStorage.getItem('tasks')) 
+    }
+    phantomTaskInput.addEventListener('focusout', () => setTimeout(()=>phantomTaskInput.value = '', 500))
     phantomTaskInput.addEventListener('keypress', e => {
-        console.log(e.which)
         if(phantomTaskInput.value.length < 40){
-            if((e.key == 'Enter' || e.keyCode == 13 || e.which == 13) && phantomTaskInput.value != ''){
-                if(localStorage.getItem('tasks').length == 0)              
-                    localStorage.setItem('tasks', JSON.stringify(new Task(phantomTaskInput.value.trim())))
-                else
-                    localStorage.setItem('tasks', [localStorage.getItem('tasks') + ';' + JSON.stringify(new Task(phantomTaskInput.value.trim()))])
-                phantomTaskInput.value = ''
-                renderTasks(localStorage.getItem('tasks'))            
+            if((e.key == 'Enter') && phantomTaskInput.value != ''){
+                onEnterPress(phantomTaskInput.value)
             }
         }else{
             alert('nome muito grande')
@@ -196,21 +205,29 @@ window.addEventListener('DOMContentLoaded', () => {
     const asideMenu = document.getElementById('asideMenu')
     const icon = menuSlider.children[0]
     const menuBackground = document.getElementById('menuBackground')
+    const menuItems = document.getElementsByClassName('menuItem')
     menuSlider.addEventListener('click', ()=>{
-        console.log(icon.style.transform)
-        if(icon.style.transform == '' || icon.style.transform == 'translateX(0px) rotate(180deg)'){
+        if(icon.style.transform == '' || icon.style.transform == 'translate(0px, 0px) rotate(180deg)'){
             menuBackground.style.zIndex = '2'
             menuBackground.style.backgroundColor = 'rgba(0, 0, 0, .8)'
             icon.style.transform = 'translateX(-25%)'
-            asideMenu.style.transform = 'translateX(-30%)'
+            asideMenu.style.transform = 'translate(-30%, calc(-50% - 80px))'
         }else{
             menuBackground.style.backgroundColor = 'rgba(0, 0, 0, 0)'
             menuBackground.style.zIndex = '-1'
-            icon.style.transform = 'translateX(0) rotate(180deg)'
-            asideMenu.style.transform = 'translateX(-95%)'
+            icon.style.transform = 'translate(0, 0) rotate(180deg)'
+            asideMenu.style.transform = 'translate(-95%, calc(-50% - 80px))'
         }
     })
-    menuBackground.addEventListener('click', ()=>{
-        menuSlider.click()
+    menuBackground.addEventListener('click', () => menuSlider.click())
+    for(btn of menuItems){
+        btn.addEventListener('click', () => menuSlider.click())
+    }
+
+    btnSend = document.getElementById('btnSend')
+    btnSend.addEventListener('click', () => {
+        if(phantomTaskInput.value != ''){
+            onEnterPress(phantomTaskInput.value)
+        }
     })
 })
