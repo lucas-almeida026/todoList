@@ -130,12 +130,13 @@ const renderTasks = async tasks => {
 
 const renderColorTheme = theme => {
     const body = document.getElementsByTagName('body')[0]
-    const header = document.getElementsByTagName('header')[0]
+    const name = document.getElementById('name')
     const optionButtons = document.getElementsByClassName('option')
     const menuItems = document.getElementsByClassName('menuItem')
     const checkBoxes = document.getElementsByClassName('checkBox')
     body.classList.add(theme + 'Bg')
-    header.classList.add(theme + 'Bg')
+    name.classList.item(0) ? name.classList.remove(name.classList.item(0)) : false
+    theme == 'light' ? name.classList.add('contrast') : name.classList.add('colorWhite')
     for(btn of optionButtons){
         !!btn.children[0].classList.item(2) ? btn.children[0].classList.remove(btn.children[0].classList.item(2)) : false
         btn.children[0].classList.add(theme + 'Material')     
@@ -151,7 +152,7 @@ const renderColorTheme = theme => {
         chk.children[0].classList.add(theme + 'Material')
     } 
     !!body.classList.item(1) ? body.classList.remove(body.classList.item(0)) : false
-    !!header.classList.item(1) ? header.classList.remove(header.classList.item(0)) : false
+    !!name.classList.item(1) ? name.classList.remove(name.classList.item(0)) : false
 }
 
 
@@ -176,10 +177,9 @@ window.addEventListener('DOMContentLoaded', () => {
     let phantomTaskInput = document.getElementById('phantomTaskInput')
     phantomTaskInput.addEventListener('focusout', () => phantomTaskInput.value = '')
     phantomTaskInput.addEventListener('keypress', e => {
-        if(phantomTaskInput.value.length >= 4 ) alert(e.key)
-        
+        console.log(e.which)
         if(phantomTaskInput.value.length < 40){
-            if(e.key == 'Enter' && phantomTaskInput.value != ''){
+            if((e.key == 'Enter' || e.keyCode == 13 || e.which == 13) && phantomTaskInput.value != ''){
                 if(localStorage.getItem('tasks').length == 0)              
                     localStorage.setItem('tasks', JSON.stringify(new Task(phantomTaskInput.value.trim())))
                 else
@@ -190,5 +190,27 @@ window.addEventListener('DOMContentLoaded', () => {
         }else{
             alert('nome muito grande')
         }
+    })
+
+    const menuSlider = document.getElementById('menuSlider')
+    const asideMenu = document.getElementById('asideMenu')
+    const icon = menuSlider.children[0]
+    const menuBackground = document.getElementById('menuBackground')
+    menuSlider.addEventListener('click', ()=>{
+        console.log(icon.style.transform)
+        if(icon.style.transform == '' || icon.style.transform == 'translateX(0px) rotate(180deg)'){
+            menuBackground.style.zIndex = '2'
+            menuBackground.style.backgroundColor = 'rgba(0, 0, 0, .8)'
+            icon.style.transform = 'translateX(-25%)'
+            asideMenu.style.transform = 'translateX(-30%)'
+        }else{
+            menuBackground.style.backgroundColor = 'rgba(0, 0, 0, 0)'
+            menuBackground.style.zIndex = '-1'
+            icon.style.transform = 'translateX(0) rotate(180deg)'
+            asideMenu.style.transform = 'translateX(-95%)'
+        }
+    })
+    menuBackground.addEventListener('click', ()=>{
+        menuSlider.click()
     })
 })
