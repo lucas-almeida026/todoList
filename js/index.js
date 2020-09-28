@@ -126,6 +126,7 @@ const renderTasks = async tasks => {
 
     const arrayElements = createTaskElements(normalizedTasks)
     if(!!arrayElements){
+        arrayElements.length > 7 ?  list.style.overflowY = 'scroll' : list.style.overflowX = 'none'
         for(el of arrayElements){
             list.append(el)
         }
@@ -220,9 +221,8 @@ window.addEventListener('DOMContentLoaded', () => {
     })
     menuBackground.addEventListener('click', () => menuSlider.click())
     for(btn of menuItems){
-        btn.addEventListener('click', () => menuSlider.click())
+        btn.addEventListener('click', () => screen.width < 720 ? menuSlider.click() : false)
     }
-
     btnSend = document.getElementById('btnSend')
     btnSend.addEventListener('click', () => {
         if(phantomTaskInput.value != ''){

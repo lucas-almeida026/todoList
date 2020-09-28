@@ -185,7 +185,7 @@ header{
 .task{
     width: 90%;
     max-width: 360px;
-    height: 40px;
+    min-height: 40px;
     margin: 5px 0;
     display: flex;
     background: #f0f0f0;
@@ -257,6 +257,26 @@ header{
     border-radius: 4px;
     border: 1px solid #888;
     display: none;
+}
+
+::-webkit-scrollbar{
+    width: 15px;
+}
+
+::-webkit-scrollbar-track {
+    border-radius: 20px;
+    border: 1px solid #b8b8b8;
+    background: rgba(0, 0, 0, .4);
+}
+  
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    border: 1px solid #3e3e3e;
+    background: rgba(255, 255, 255, .5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, .2);
 }
 
 @media screen and (max-width: 940px){
