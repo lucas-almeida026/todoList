@@ -259,10 +259,6 @@ header{
     display: none;
 }
 
-/* .asd{
-
-} */
-
 @media screen and (max-width: 940px){
     #taskList{
         width: calc(90% - 280px);

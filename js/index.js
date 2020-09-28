@@ -39,7 +39,6 @@ const editTask = taskId => {
     input.addEventListener('focusout', () => {
         if(input.value != ''){
             updateTasks(thisTask, t => t.name = input.value.trim())
-            renderTasks(localStorage.getItem('tasks'))
         }
     })
 }
@@ -197,7 +196,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 onEnterPress(phantomTaskInput.value)
             }
         }else{
-            alert('nome muito grande')
+            alert('Nome da task muito grande')
         }
     })
 
@@ -227,7 +226,11 @@ window.addEventListener('DOMContentLoaded', () => {
     btnSend = document.getElementById('btnSend')
     btnSend.addEventListener('click', () => {
         if(phantomTaskInput.value != ''){
-            onEnterPress(phantomTaskInput.value)
+            if(phantomTaskInput.value.length < 40){                
+                onEnterPress(phantomTaskInput.value)
+            }else{
+                alert('Nome da task muito grande')
+            }
         }
     })
 })
