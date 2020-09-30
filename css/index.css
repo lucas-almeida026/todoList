@@ -287,16 +287,16 @@ article{
     align-items: center;
 }
 
-section{
+article section{
     width: 60%;    
     padding: 12px;
     color: rgba(0, 0, 0, .8);
 }
 
-section p{text-align: justify;}
+article section p{text-align: justify;}
 
-section h1{font-size: 16pt;}
-section p{font-size: 13pt;}
+article section h1{font-size: 16pt;}
+article section p{font-size: 13pt;}
 
 footer{
     height: 80px;
@@ -310,6 +310,13 @@ footer{
 }
 
 footer a, footer a:hover{text-decoration: underline;}
+
+@media screen and (max-width: 1200px) and (min-width: 720px){
+    article section{
+        width: 50%;
+        margin-left: calc(10% + 20px);
+    }
+}
 
 @media screen and (max-width: 940px){
     #taskList{
@@ -379,4 +386,6 @@ footer a, footer a:hover{text-decoration: underline;}
     #taskList{
         height: 340px;
     }
+
+    article section{width: 70%;}
 }
