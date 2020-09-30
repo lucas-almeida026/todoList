@@ -2,6 +2,7 @@ const encode = id => (id * 7).toString(16) + (id * 140).toString(16).substring(0
 const decode = encodedId => (parseInt('0x' + encodedId.substring(0, encodedId.length - 2)) / 7).toString()
 
 const getTaskById = taskId => localStorage.getItem('tasks').split(';').map(e => JSON.parse(e)).filter(e => e.id == taskId)[0]
+
 const updateTasks = (task, change) => {
     const tasks = localStorage.getItem('tasks')
     const lefting = tasks.split(';').map(e => JSON.parse(e)).filter(e => e.id < task.id)
@@ -126,10 +127,10 @@ const renderTasks = async tasks => {
 
     const arrayElements = createTaskElements(normalizedTasks)
     if(!!arrayElements){
-        arrayElements.length > 7 ?  list.style.overflowY = 'scroll' : list.style.overflowX = 'none'
         for(el of arrayElements){
             list.append(el)
         }
+        list.offsetHeight / ((list.children.length * 50) + 10) < 1.05 ? list.style.overflowY = 'scroll' : list.style.overflowY = 'none'
     }
     renderColorTheme(localStorage.getItem('colorTheme'))
 }
@@ -137,12 +138,24 @@ const renderTasks = async tasks => {
 const renderColorTheme = theme => {
     const body = document.getElementsByTagName('body')[0]
     const name = document.getElementById('name')
+    const author = document.getElementById('author')
+    const release = document.getElementById('release')
     const optionButtons = document.getElementsByClassName('option')
     const menuItems = document.getElementsByClassName('menuItem')
     const checkBoxes = document.getElementsByClassName('checkBox')
     body.classList.add(theme + 'Bg')
     name.classList.item(0) ? name.classList.remove(name.classList.item(0)) : false
-    theme == 'light' ? name.classList.add('contrast') : name.classList.add('colorWhite')
+    author.classList.item(0) ? author.classList.remove(author.classList.item(0)) : false
+    release.classList.item(0) ? release.classList.remove(release.classList.item(0)) : false
+    if(theme == 'light'){
+        name.classList.add('contrast')
+        author.classList.add('contrast')
+        release.classList.add('contrast')
+    }else{
+        name.classList.add('colorWhite')
+        author.classList.add('colorWhite')
+        release.classList.add('colorWhite')
+    }
     for(btn of optionButtons){
         !!btn.children[0].classList.item(2) ? btn.children[0].classList.remove(btn.children[0].classList.item(2)) : false
         btn.children[0].classList.add(theme + 'Material')     
@@ -182,9 +195,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     let phantomTaskInput = document.getElementById('phantomTaskInput')
     const onEnterPress = (string) => {  
-        if(localStorage.getItem('tasks').length == 0)              
-            localStorage.setItem('tasks', JSON.stringify(new Task(string.trim())))
-        else
+        localStorage.getItem('tasks').length == 0 ? //if             
+            localStorage.setItem('tasks', JSON.stringify(new Task(string.trim()))) : //else
             localStorage.setItem('tasks', [localStorage.getItem('tasks') + ';' + JSON.stringify(new Task(string.trim()))])
 
         phantomTaskInput.value = ''

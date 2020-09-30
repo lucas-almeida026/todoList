@@ -279,6 +279,37 @@ header{
     background: rgba(255, 255, 255, .2);
 }
 
+article{
+    background-color: rgba(255, 255, 255, .5);
+    margin-top: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+section{
+    width: 60%;
+    text-align: justify;
+    padding: 12px;
+    color: rgba(0, 0, 0, .8);
+}
+
+section h1{font-size: 16pt;}
+section p{font-size: 13pt;}
+
+footer{
+    height: 80px;
+    background: rgba(0, 0, 0, .1);
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, .3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #f0f0f0;
+}
+
+footer a, footer a:hover{text-decoration: underline;}
+
 @media screen and (max-width: 940px){
     #taskList{
         width: calc(90% - 280px);
@@ -299,7 +330,7 @@ header{
     #taskList{
         width: 80%;
         margin-left: 10%;
-        height: 340px;
+        height: 80vh;
     }
 
     #menuBackground{
@@ -337,4 +368,10 @@ header{
     }
 
     .selectedTheme{opacity: 1;}
+}
+
+@media screen and (max-height: 500px){
+    #taskList{
+        height: 340px;
+    }
 }
