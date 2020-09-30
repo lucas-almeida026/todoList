@@ -281,18 +281,19 @@ header{
 
 article{
     background-color: rgba(255, 255, 255, .5);
-    margin-top: 90px;
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 section{
-    width: 60%;
-    text-align: justify;
+    width: 60%;    
     padding: 12px;
     color: rgba(0, 0, 0, .8);
 }
+
+section p{text-align: justify;}
 
 section h1{font-size: 16pt;}
 section p{font-size: 13pt;}
@@ -368,6 +369,10 @@ footer a, footer a:hover{text-decoration: underline;}
     }
 
     .selectedTheme{opacity: 1;}
+
+    article{
+        margin-top: 10px;
+    }
 }
 
 @media screen and (max-height: 500px){
